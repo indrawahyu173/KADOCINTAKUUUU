@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Sayang</title>
+
+    <!-- Ganti "style.css" dan "script.js" sesuai nama file CSS/JS kamu -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- =======================================================
+         1. WELCOME SCREEN (Halaman Awal)
+         Interaksi hati yang bisa ditarik (pull) untuk membuka
+    ======================================================== -->
+    <section id="welcome-screen" class="screen welcome-screen active">
+        <div class="welcome-content">
+            <p class="welcome-subtitle">a little something, for you</p>
+
+            <div class="heart-pull-wrapper">
+                <div class="heart-string" id="heart-string"></div>
+
+                <div class="heart-container" id="heart-container">
+                    <div class="heart-icon" id="heart-icon">
+                        <svg class="heart-svg" viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 29C16 29 0 19.5 0 9.5C0 4.25 4.25 0 9.5 0C12.5 0 15 1.5 16 3.5C17 1.5 19.5 0 22.5 0C27.75 0 32 4.25 32 9.5C32 19.5 16 29 16 29Z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pull-instruction" id="pull-instruction">
+                <span class="pull-arrow-icon">&#8595;</span>
+                <span class="pull-text">PULL &amp; RELEASE</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- =======================================================
+         2. TRANSITION SCREEN (Halaman Transisi Merah)
+         Muncul setelah interaksi hati dilepaskan
+    ======================================================== -->
+    <section id="transition-screen" class="screen transition-screen">
+        <div class="transition-content">
+            <p class="transition-preamble">make a wish...</p>
+            <h1 class="transition-title">
+                <span class="title-line line-1">Happy</span>
+                <span class="title-line line-2">Birthday</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- =======================================================
+         3. MAIN SCREEN (Halaman Konten Utama)
+    ======================================================== -->
+    <main id="main-screen" class="screen main-screen">
+
+        <!-- =======================================================
+             REVISI: Animasi Background Hati (Pengganti Pohon)
+        ======================================================== -->
+        <div class="heart-background">
+            <div class="floating-hearts">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <!-- Audio Backsound -->
+        <audio id="background-music" class="background-music" loop preload="auto">
+            <source src="assets/audio/backsound.mp3" type="audio/mpeg">
+            Browser Anda tidak mendukung elemen audio.
+        </audio>
+
+        <button id="music-toggle-btn" class="music-toggle-btn" type="button" aria-label="Putar/Jeda Musik">
+            <span class="music-icon-playing">&#9835;</span>
+            <span class="music-icon-paused">&#10074;&#10074;</span>
+        </button>
+
+        <!-- ---------------------------------------------
+             3.1 Header Judul Halaman Utama
+        ---------------------------------------------- -->
+        <header class="main-header">
+            <h2 class="main-greeting">Happy Birthday</h2>
+            <p class="main-greeting-subtitle">Selamat Ulang Tahun, Sayang</p>
+        </header>
+
+        <!-- ---------------------------------------------
+             3.3 Grid Gallery Section (Galeri Foto)
+        ---------------------------------------------- -->
+        <section id="gallery-section" class="gallery-section">
+            <p class="section-label">Our Memories Together</p>
+
+            <div class="gallery-grid" id="gallery-grid">
+
+                <div class="gallery-card gallery-card-1" data-caption="Kenangan pertama kita">
+                    <img class="gallery-photo" src="assets/images/memory-1.jpeg" alt="Kenangan bersama 1">
+                    <div class="gallery-overlay">
+                        <p class="gallery-caption">Kenangan pertama kita</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card gallery-card-2" data-caption="Momen bahagia berdua">
+                    <img class="gallery-photo" src="assets/images/memory-2.jpeg" alt="Kenangan bersama 2">
+                    <div class="gallery-overlay">
+                        <p class="gallery-caption">Momen bahagia berdua</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card gallery-card-3" data-caption="Perjalanan yang menyenangkan">
+                    <img class="gallery-photo" src="assets/images/memory-3.jpeg" alt="Kenangan bersama 3">
+                    <div class="gallery-overlay">
+                        <p class="gallery-caption">Perjalanan yang menyenangkan</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card gallery-card-4" data-caption="Selalu bersama, selamanya">
+                    <img class="gallery-photo" src="assets/images/memory-4.jpeg" alt="Kenangan bersama 4">
+                    <div class="gallery-overlay">
+                        <p class="gallery-caption">Selalu bersama, selamanya</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ---------------------------------------------
+             3.4 Love Letter Card Section (Surat Cinta)
+        ---------------------------------------------- -->
+        <section id="love-letter-section" class="love-letter-section">
+            <div class="love-letter-card" id="love-letter-card">
+
+                <div class="letter-tag">
+                    <span class="letter-tag-icon">&#9993;</span>
+                    <span class="letter-tag-text">A Message for You</span>
+                </div>
+
+                <h3 class="letter-title">Selamat Ulang Tahun Sayang</h3>
+
+                <div class="letter-body">
+                    <p class="letter-paragraph">
+                        Nggak terasa ya sudah berjalan sejauh ini.
+                    </p>
+                    <p class="letter-paragraph">
+                        Semoga di usia yang baru kamu makin bahagia, makin kuat,
+                        dan selalu dikelilingi orang-orang yang sayang sama kamu.
+                    </p>
+                    <p class="letter-paragraph">
+                        Jangan lelah capek ya, istirahat juga kalau lelah.
+                    </p>
+                    <p class="letter-paragraph">
+                        Aku selalu punya rasa sayang yang sama besarnya untuk kamu.
+                    </p>
+                </div>
+
+                <p class="letter-signature">- Nama Pengirim -</p>
+
+                <button id="send-gift-btn" class="send-gift-btn" type="button">
+                    <span class="gift-icon">&#127873;</span>
+                    <span class="send-gift-text">Send a Gift</span>
+                </button>
+
+            </div>
+
+            <!-- Modal Kado (muncul saat tombol "Send a Gift" ditekan) -->
+            <div id="gift-modal" class="gift-modal" aria-hidden="true">
+                <div class="gift-modal-overlay" id="gift-modal-overlay"></div>
+                <div class="gift-modal-content" role="dialog" aria-modal="true">
+                    <button id="gift-modal-close" class="gift-modal-close" type="button" aria-label="Tutup">&times;</button>
+
+                    <div class="gift-modal-icon">&#127873;</div>
+                    <h4 class="gift-modal-title">A Special Birthday Gift for You!</h4>
+                    <p class="gift-modal-text">
+                        Semoga hari ini dipenuhi hal-hal baik, kebahagiaan,
+                        dan segala hal spesial untuk kamu.
+                    </p>
+
+                    <span class="gift-modal-badge">
+                        <span class="badge-icon">&#127881;</span>
+                        <span class="badge-text">HAPPY BIRTHDAY 2026</span>
+                    </span>
+
+                    <button id="gift-modal-action-btn" class="gift-modal-action-btn" type="button">
+                        Close Modal
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------------------------------------------
+             3.5 Video Memory Section (Video Kenangan)
+        ---------------------------------------------- -->
+        <section id="video-memory-section" class="video-memory-section">
+            <p class="section-label">A Video Just for You</p>
+
+            <div class="video-wrapper" id="video-wrapper">
+                <video
+                    id="memory-video"
+                    class="memory-video"
+                    controls
+                    preload="metadata"
+                    poster="assets/images/video-thumbnail.jpeg">
+                    <source src="assets/video/memory.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung elemen video.
+                </video>
+            </div>
+        </section>
+
+        <!-- ---------------------------------------------
+             3.6 Footer
+        ---------------------------------------------- -->
+        <footer id="site-footer" class="site-footer">
+            <p class="footer-quote">Made with love, for the most special person.</p>
+            <p class="footer-credit">&copy; <span id="footer-year">2026</span> — Created with &#10084; for you</p>
+        </footer>
+
+    </main>
+
+    <!-- Ganti "script.js" sesuai nama file JavaScript kamu -->
+    <script src="script.js"></script>
+</body>
+</html>

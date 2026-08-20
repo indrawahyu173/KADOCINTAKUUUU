@@ -1,0 +1,854 @@
+/* =========================================================
+   HAPPY BIRTHDAY WEBSITE — STYLESHEET (REVISI LATAR HATI)
+   Tema: Romantic Warm Aesthetic
+   Palet : Cream #fdf6f0 | Deep Red #ff4b4b | White #ffffff
+   Font  : Playfair Display (judul) + Poppins (teks umum)
+========================================================= */
+
+/* =========================================================
+   1. IMPORT FONT & CSS VARIABLES
+========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Warna Asli - JANGAN DIUBAH */
+    --color-cream: #fdf6f0;
+    --color-cream-dark: #f5e9df;
+    --color-red: #ff4b4b;
+    --color-red-dark: #d63c3c;
+    --color-red-soft: #ffb3b3;
+    --color-white: #ffffff;
+    --color-text-dark: #4a3b3b;
+    --color-text-muted: #8a7a75;
+    --color-gold: #e8b84b;
+
+    /* Tipografi */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+
+    /* Bayangan & Radius */
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 15px 40px rgba(0, 0, 0, 0.12);
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+
+    /* Transisi */
+    --transition-fast: 0.3s ease;
+    --transition-medium: 0.6s ease;
+    --transition-slow: 1s ease;
+}
+
+/* =========================================================
+   2. RESET & BASE STYLES
+========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-cream);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+}
+
+img, video {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =========================================================
+   3. SISTEM LAYAR (SCREEN SYSTEM)
+========================================================= */
+.screen {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.98);
+    transition: opacity var(--transition-slow),
+                transform var(--transition-slow),
+                visibility 0s linear var(--transition-slow);
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: opacity var(--transition-slow),
+                transform var(--transition-slow),
+                visibility 0s linear 0s;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.welcome-screen,
+.transition-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.transition-screen {
+    z-index: 20;
+}
+
+.main-screen {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================================
+   4. WELCOME SCREEN (Halaman Awal)
+========================================================= */
+.welcome-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, var(--color-cream) 0%, var(--color-cream-dark) 100%);
+    text-align: center;
+    padding: 24px;
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    max-width: 480px;
+    width: 100%;
+}
+
+.welcome-subtitle {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--color-text-muted);
+    letter-spacing: 0.5px;
+}
+
+.heart-pull-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+.heart-string {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--color-text-muted));
+    opacity: 0.4;
+}
+
+.heart-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 179, 179, 0.5) 0%, rgba(255, 179, 179, 0) 70%);
+    cursor: grab;
+    touch-action: none;
+    transition: transform var(--transition-fast);
+}
+
+.heart-container:active {
+    cursor: grabbing;
+}
+
+.heart-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: heartbeat 1.4s ease-in-out infinite;
+    filter: drop-shadow(0 8px 20px rgba(255, 75, 75, 0.45));
+}
+
+.heart-svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--color-red);
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.12); }
+    30% { transform: scale(0.98); }
+    45% { transform: scale(1.08); }
+    60% { transform: scale(1); }
+}
+
+.heart-container.is-pulling .heart-icon {
+    animation-play-state: paused;
+    transform: scale(1.15);
+    transition: transform 0.15s ease-out;
+}
+
+.heart-container.is-released .heart-icon {
+    animation: none;
+    transform: scale(1.4);
+    opacity: 0;
+    transition: transform 0.5s ease-in, opacity 0.5s ease-in;
+}
+
+.pull-instruction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-text-muted);
+    animation: bounce-arrow 1.8s ease-in-out infinite;
+}
+
+.pull-arrow-icon {
+    font-size: 1.3rem;
+    color: var(--color-red);
+}
+
+.pull-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+@keyframes bounce-arrow {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50% { transform: translateY(8px); opacity: 1; }
+}
+
+.pull-instruction:active,
+.pull-instruction.is-touched {
+    transform: scale(0.94);
+    opacity: 0.8;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* =========================================================
+   5. TRANSITION SCREEN (Halaman Transisi Merah)
+========================================================= */
+.transition-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, var(--color-red) 0%, var(--color-red-dark) 100%);
+    color: var(--color-white);
+    text-align: center;
+    padding: 24px;
+}
+
+.transition-screen.active {
+    animation: fade-in-red var(--transition-slow) ease forwards;
+}
+
+@keyframes fade-in-red {
+    from { background: var(--color-cream); }
+    to { background: linear-gradient(160deg, var(--color-red) 0%, var(--color-red-dark) 100%); }
+}
+
+.transition-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+.transition-preamble {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    letter-spacing: 1px;
+    opacity: 0.9;
+    animation: fade-slide-up 0.8s ease 0.2s both;
+}
+
+.transition-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    line-height: 1.15;
+}
+
+.title-line {
+    display: block;
+    animation: fade-slide-up 0.9s ease both;
+}
+
+.title-line.line-1 { animation-delay: 0.4s; }
+.title-line.line-2 { animation-delay: 0.7s; font-style: italic; }
+
+@keyframes fade-slide-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   6. MAIN SCREEN — GENERAL LAYOUT
+========================================================= */
+.main-screen {
+    /* Revisi: Menjadikan background transparan agar latar hati terlihat */
+    background-color: transparent;
+    padding-bottom: 60px;
+}
+
+.section-label {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-red);
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.music-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 50;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-white);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-red);
+    transition: transform var(--transition-fast);
+}
+
+.music-toggle-btn:hover,
+.music-toggle-btn:active {
+    transform: scale(1.1);
+}
+
+.music-icon-paused { display: none; }
+.music-toggle-btn.is-paused .music-icon-playing { display: none; }
+.music-toggle-btn.is-paused .music-icon-paused { display: inline; }
+
+.main-header {
+    text-align: center;
+    padding: 60px 24px 40px;
+}
+
+.main-greeting {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2rem, 6vw, 3rem);
+    color: var(--color-red);
+    margin-bottom: 8px;
+}
+
+.main-greeting-subtitle {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    font-family: var(--font-heading);
+}
+
+.gallery-section,
+.love-letter-section,
+.video-memory-section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+/* =========================================================
+   7. BACKGROUND ANIMASI HATI (Pengganti Pohon)
+========================================================= */
+.heart-background {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    /* Latar pink elegan */
+    background: linear-gradient(to bottom, #ffb6c1 0%, #fff0f5 100%);
+    overflow: hidden;
+}
+
+.floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.floating-hearts span {
+    position: absolute;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.65); /* Putih semi-transparan */
+    /* Bentuk hati murni dengan SVG clip-path */
+    clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+    bottom: -150px; /* Mulai dari luar layar bawah */
+    animation: float-up 25s linear infinite;
+}
+
+/* Variasi posisi, ukuran, warna, dan durasi untuk 15 hati */
+.floating-hearts span:nth-child(1)  { left: 25%; width: 30px; height: 30px; animation-duration: 20s; animation-delay: 0s; }
+.floating-hearts span:nth-child(2)  { left: 10%; width: 20px; height: 20px; animation-duration: 22s; animation-delay: 2s; background-color: rgba(255,255,255,0.4); }
+.floating-hearts span:nth-child(3)  { left: 70%; width: 25px; height: 25px; animation-duration: 18s; animation-delay: 4s; }
+.floating-hearts span:nth-child(4)  { left: 40%; width: 40px; height: 40px; animation-duration: 25s; animation-delay: 0s; background-color: rgba(255,255,255,0.3); }
+.floating-hearts span:nth-child(5)  { left: 65%; width: 15px; height: 15px; animation-duration: 21s; animation-delay: 3s; }
+.floating-hearts span:nth-child(6)  { left: 90%; width: 35px; height: 35px; animation-duration: 19s; animation-delay: 1s; }
+.floating-hearts span:nth-child(7)  { left: 35%; width: 45px; height: 45px; animation-duration: 24s; animation-delay: 7s; }
+.floating-hearts span:nth-child(8)  { left: 50%; width: 20px; height: 20px; animation-duration: 20s; animation-delay: 5s; }
+.floating-hearts span:nth-child(9)  { left: 15%; width: 28px; height: 28px; animation-duration: 17s; animation-delay: 8s; background-color: rgba(255,255,255,0.5); }
+.floating-hearts span:nth-child(10) { left: 85%; width: 25px; height: 25px; animation-duration: 22s; animation-delay: 6s; }
+.floating-hearts span:nth-child(11) { left: 8%;  width: 15px; height: 15px; animation-duration: 16s; animation-delay: 9s; }
+.floating-hearts span:nth-child(12) { left: 60%; width: 35px; height: 35px; animation-duration: 23s; animation-delay: 2.5s; background-color: rgba(255,255,255,0.4); }
+.floating-hearts span:nth-child(13) { left: 80%; width: 22px; height: 22px; animation-duration: 19s; animation-delay: 4.5s; }
+.floating-hearts span:nth-child(14) { left: 45%; width: 40px; height: 40px; animation-duration: 26s; animation-delay: 1.5s; }
+.floating-hearts span:nth-child(15) { left: 30%; width: 20px; height: 20px; animation-duration: 21s; animation-delay: 8.5s; }
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   8. GALLERY SECTION (Grid Gallery — 2 kolom, 4 foto)
+========================================================= */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.gallery-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    background-color: var(--color-cream-dark);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.gallery-card:hover,
+.gallery-card:active {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-medium);
+}
+
+.gallery-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-medium);
+}
+
+.gallery-card:hover .gallery-photo {
+    transform: scale(1.08);
+}
+
+.gallery-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 14px 12px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.gallery-card:hover .gallery-overlay,
+.gallery-card:active .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-caption {
+    color: var(--color-white);
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    font-style: italic;
+    text-align: center;
+}
+
+.gallery-card-1 { border-top-left-radius: 40px; }
+.gallery-card-4 { border-bottom-right-radius: 40px; }
+
+/* =========================================================
+   9. LOVE LETTER CARD SECTION (Surat Cinta)
+========================================================= */
+.love-letter-section {
+    display: flex;
+    justify-content: center;
+}
+
+.love-letter-card {
+    position: relative;
+    width: 100%;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-medium);
+    padding: 40px 32px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid rgba(255, 75, 75, 0.08);
+}
+
+.letter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-cream);
+    color: var(--color-red);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+}
+
+.letter-tag-icon { font-size: 0.9rem; }
+
+.letter-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
+    color: var(--color-red);
+}
+
+.letter-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 480px;
+}
+
+.letter-paragraph {
+    font-size: 0.92rem;
+    color: var(--color-text-dark);
+    line-height: 1.8;
+}
+
+.letter-signature {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 600;
+    color: var(--color-red-dark);
+    margin-top: 8px;
+}
+
+.send-gift-btn {
+    margin-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--color-red), var(--color-red-dark));
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 32px;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(255, 75, 75, 0.35);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.send-gift-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(255, 75, 75, 0.45);
+}
+
+.send-gift-btn:active {
+    transform: translateY(0) scale(0.96);
+    box-shadow: 0 6px 16px rgba(255, 75, 75, 0.3);
+}
+
+.gift-icon {
+    font-size: 1.1rem;
+    animation: wiggle 1.6s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+/* =========================================================
+   10. GIFT MODAL (Modal Kado)
+========================================================= */
+.gift-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-fast), visibility 0s linear var(--transition-fast);
+}
+
+.gift-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--transition-fast), visibility 0s linear 0s;
+}
+
+.gift-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(74, 59, 59, 0.55);
+    backdrop-filter: blur(4px);
+}
+
+.gift-modal-content {
+    position: relative;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-medium);
+    padding: 40px 28px 32px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transform: scale(0.85) translateY(20px);
+    transition: transform var(--transition-fast);
+}
+
+.gift-modal.active .gift-modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.gift-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+    line-height: 1;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.gift-modal-close:hover {
+    color: var(--color-red);
+    transform: rotate(90deg);
+}
+
+.gift-modal-icon {
+    font-size: 2.6rem;
+    animation: bounce-gift 1.2s ease infinite;
+}
+
+@keyframes bounce-gift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.gift-modal-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--color-red);
+}
+
+.gift-modal-text {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+.gift-modal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-cream);
+    color: var(--color-gold);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    margin: 6px 0;
+}
+
+.gift-modal-action-btn {
+    margin-top: 10px;
+    width: 100%;
+    background: linear-gradient(135deg, var(--color-red), var(--color-red-dark));
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    border-radius: 999px;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.gift-modal-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(255, 75, 75, 0.35);
+}
+
+.gift-modal-action-btn:active {
+    transform: scale(0.96);
+}
+
+/* =========================================================
+   11. VIDEO MEMORY SECTION (Pemutar Video Responsif)
+========================================================= */
+.video-memory-section {
+    text-align: center;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    /* Batasi lebar maksimum agar video tidak terlalu raksasa saat memanjang ke bawah */
+    max-width: 400px; 
+    margin: 0 auto; /* Menjaga video tetap di tengah */
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    background: #000;
+    
+    /* REVISI: Ubah dari 16 / 9 menjadi rasio vertikal 9 / 16 */
+    aspect-ratio: 9 / 16; 
+}
+
+.memory-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+}
+
+/* =========================================================
+   12. FOOTER
+========================================================= */
+.site-footer {
+    text-align: center;
+    padding: 40px 24px 20px;
+    color: var(--color-text-muted);
+}
+
+.footer-quote {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.footer-credit {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* =========================================================
+   13. RESPONSIVE — TABLET & MOBILE
+========================================================= */
+@media (max-width: 768px) {
+    .gallery-section,
+    .love-letter-section,
+    .video-memory-section {
+        padding: 32px 20px;
+    }
+
+    .main-header {
+        padding: 48px 20px 32px;
+    }
+
+    .love-letter-card {
+        padding: 32px 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heart-container {
+        width: 110px;
+        height: 110px;
+    }
+
+    .heart-icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .gallery-grid {
+        gap: 12px;
+    }
+
+    .gallery-card-1,
+    .gallery-card-4 {
+        border-radius: var(--radius-md);
+    }
+
+    .love-letter-card {
+        padding: 28px 18px;
+        border-radius: var(--radius-md);
+    }
+
+    .send-gift-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .music-toggle-btn {
+        top: 14px;
+        right: 14px;
+        width: 38px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 340px) {
+    .transition-title { font-size: 2.2rem; }
+    .welcome-content { gap: 32px; }
+}
